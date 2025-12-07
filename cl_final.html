@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דף קשר - גן החלומות</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8bbd9 50%, #fff9c4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, .95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+            padding: 40px 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '🌙✨';
+            position: absolute;
+            left: 50%;
+            top: -35px;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        .garden-name {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, .1);
+        }
+
+        .contact-title {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.5rem;
+            color: #7b68ee;
+            font-weight: 400;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 25px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .1);
+        }
+
+        .children-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .child-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+            transition: transform .3s ease, box-shadow .3s ease;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .child-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
+            border-color: #7b68ee;
+        }
+
+        .child-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: #fff;
+            border: 4px solid #fff;
+            background: #667eea;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
+        }
+
+        .child-name {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .parent-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+
+        .parent-label {
+            font-size: .9rem;
+            color: #6c757d;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .parent-phone {
+            font-size: 1rem;
+            color: #495057;
+            font-weight: 500;
+            direction: ltr;
+            text-align: center;
+        }
+
+        .child-number {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: .7rem;
+            color: #adb5bd;
+            font-weight: 500;
+        }
+
+        .decorative-elements {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffd700;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: .3
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        .star:nth-child(1) {
+            top: 10%;
+            right: 15%;
+            font-size: 1.5rem;
+            animation-delay: 0s;
+        }
+
+        .star:nth-child(2) {
+            top: 25%;
+            left: 20%;
+            font-size: 1rem;
+            animation-delay: .5s;
+        }
+
+        .star:nth-child(3) {
+            top: 40%;
+            right: 25%;
+            font-size: 1.2rem;
+            animation-delay: 1s;
+        }
+
+        .star:nth-child(4) {
+            top: 60%;
+            left: 10%;
+            font-size: .8rem;
+            animation-delay: 1.5s;
+        }
+
+        .star:nth-child(5) {
+            top: 80%;
+            right: 30%;
+            font-size: 1.3rem;
+            animation-delay: .3s;
+        }
+
+        @media (max-width:1024px) {
+            .children-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width:600px) {
+            .garden-name {
+                font-size: 2rem;
+            }
+
+            .contact-title {
+                font-size: 1.3rem;
+            }
+
+            .children-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="decorative-elements">
+        <div class="star">⭐</div>
+        <div class="star">✨</div>
+        <div class="star">🌟</div>
+        <div class="star">💫</div>
+        <div class="star">⭐</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="garden-name">גן החלומות - כיתת ירח</h1>
+            <h2 class="contact-title">דף קשר</h2>
+        </div>
+
+        <div class="children-grid">
+            <!-- 1. יונתן רובינשטיין -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">יונתן רובינשטיין</div>
+                <div class="parent-info">
+                    <div class="parent-label">הילה:</div>
+                    <div class="parent-phone">0544334497</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">ערן:</div>
+                    <div class="parent-phone">0506668403</div>
+                </div>
+                <div class="child-number">1</div>
+            </div>
+
+            <!-- 2. אורי לזובסקי -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">אורי לזובסקי</div>
+                <div class="parent-info">
+                    <div class="parent-label">הדר:</div>
+                    <div class="parent-phone">0545229499</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">אדם:</div>
+                    <div class="parent-phone">0522683045</div>
+                </div>
+                <div class="child-number">2</div>
+            </div>
+
+            <!-- 3. יובל גושן -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">יובל גושן</div>
+                <div class="parent-info">
+                    <div class="parent-label">שרון:</div>
+                    <div class="parent-phone">0547673321</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">הדר:</div>
+                    <div class="parent-phone">0523951315</div>
+                </div>
+                <div class="child-number">3</div>
+            </div>
+
+            <!-- 4. מאיה ווילד -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילדה">👧</div>
+                <div class="child-name">מאיה ווילד</div>
+                <div class="parent-info">
+                    <div class="parent-label">ברברה:</div>
+                    <div class="parent-phone">0523592419</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">אלון:</div>
+                    <div class="parent-phone">0524585657</div>
+                </div>
+                <div class="child-number">4</div>
+            </div>
+
+            <!-- 5. רוי גורדון -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">רוי גורדון</div>
+                <div class="parent-info">
+                    <div class="parent-label">קארין:</div>
+                    <div class="parent-phone">0504333357</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">עידן:</div>
+                    <div class="parent-phone">0547344464</div>
+                </div>
+                <div class="child-number">5</div>
+            </div>
+
+            <!-- 6. אלה שורצטוך -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילדה">👧</div>
+                <div class="child-name">אלה שוורצטוך</div>
+                <div class="parent-info">
+                    <div class="parent-label">ניב:</div>
+                    <div class="parent-phone">0502398896</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">איתי:</div>
+                    <div class="parent-phone">0546696018</div>
+                </div>
+                <div class="child-number">6</div>
+            </div>
+
+            <!-- 7. גיא גוהרי -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">גיא גוהרי</div>
+                <div class="parent-info">
+                    <div class="parent-label">מור:</div>
+                    <div class="parent-phone">0523579444</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">צח:</div>
+                    <div class="parent-phone">0504202325</div>
+                </div>
+                <div class="child-number">7</div>
+            </div>
+
+            <!-- 8. אילון לוי -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">אילון לוי</div>
+                <div class="parent-info">
+                    <div class="parent-label">אילנה:</div>
+                    <div class="parent-phone">0545862601</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">חגי:</div>
+                    <div class="parent-phone">0544990024</div>
+                </div>
+                <div class="child-number">8</div>
+            </div>
+
+            <!-- 9. ליאו כהן -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">ליאו כהן</div>
+                <div class="parent-info">
+                    <div class="parent-label">ויקטוריה:</div>
+                    <div class="parent-phone">0527845605</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">אלון:</div>
+                    <div class="parent-phone">0542332382</div>
+                </div>
+                <div class="child-number">9</div>
+            </div>
+
+            <!-- 10. אביב אמיר -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">אביב אמיר</div>
+                <div class="parent-info">
+                    <div class="parent-label">דפנה:</div>
+                    <div class="parent-phone">0543114173</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">יואב:</div>
+                    <div class="parent-phone">0524566168</div>
+                </div>
+                <div class="child-number">10</div>
+            </div>
+
+            <!-- 11. רומי צוברי -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילדה">👧</div>
+                <div class="child-name">רומי צוברי</div>
+                <div class="parent-info">
+                    <div class="parent-label">ספיר:</div>
+                    <div class="parent-phone">0543979416</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">דולב:</div>
+                    <div class="parent-phone">0524456089</div>
+                </div>
+                <div class="child-number">11</div>
+            </div>
+
+            <!-- 12. אופיר שפירא -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">אופיר שפירא</div>
+                <div class="parent-info">
+                    <div class="parent-label">ליאור:</div>
+                    <div class="parent-phone">0544445349</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">אריה:</div>
+                    <div class="parent-phone">0525466459</div>
+                </div>
+                <div class="child-number">12</div>
+            </div>
+
+            <!-- 13. תום בר שדה -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">תום בר שדה</div>
+                <div class="parent-info">
+                    <div class="parent-label">גפן:</div>
+                    <div class="parent-phone">0526465213</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">דניאל:</div>
+                    <div class="parent-phone">0544971187</div>
+                </div>
+                <div class="child-number">13</div>
+            </div>
+
+            <!-- 14. מיה בן נון -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילדה">👧</div>
+                <div class="child-name">מיה בן נון</div>
+                <div class="parent-info">
+                    <div class="parent-label">אלה:</div>
+                    <div class="parent-phone">0542244130</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">חנן:</div>
+                    <div class="parent-phone">0548041184</div>
+                </div>
+                <div class="child-number">14</div>
+            </div>
+
+            <!-- 15. טום רותם -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">טום רותם</div>
+                <div class="parent-info">
+                    <div class="parent-label">מעיין:</div>
+                    <div class="parent-phone">0506220438</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">ענבר:</div>
+                    <div class="parent-phone">0524623931</div>
+                </div>
+                <div class="child-number">15</div>
+            </div>
+
+            <!-- 16. אגם לב -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">אגם לב</div>
+                <div class="parent-info">
+                    <div class="parent-label">חופית:</div>
+                    <div class="parent-phone">0506395570</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">צור:</div>
+                    <div class="parent-phone">0546839962</div>
+                </div>
+                <div class="child-number">16</div>
+            </div>
+
+            <!-- 17. אדם רבין -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">אדם רבין</div>
+                <div class="parent-info">
+                    <div class="parent-label">ניב:</div>
+                    <div class="parent-phone">0546661971</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">רותם:</div>
+                    <div class="parent-phone">0503538037</div>
+                </div>
+                <div class="child-number">17</div>
+            </div>
+
+            <!-- 18. מאיה גיטלזון -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילדה">👧</div>
+                <div class="child-name">מאיה גיטלזון</div>
+                <div class="parent-info">
+                    <div class="parent-label">לובה:</div>
+                    <div class="parent-phone">0545716914</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">דימה:</div>
+                    <div class="parent-phone">0542362010</div>
+                </div>
+                <div class="child-number">18</div>
+            </div>
+
+            <!-- 19. דניאלה ריבלין -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילדה">👧</div>
+                <div class="child-name">דניאלה ריבלין</div>
+                <div class="parent-info">
+                    <div class="parent-label">עופרה:</div>
+                    <div class="parent-phone">0548883305</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">אביעד</div>
+                    <div class="parent-phone">0542277528</div>
+                </div>
+                <div class="child-number">19</div>
+            </div>
+
+            <!-- 20. עומר גוטמן -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">עומר גוטמן</div>
+                <div class="parent-info">
+                    <div class="parent-label">אור:</div>
+                    <div class="parent-phone">0546763336</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">עדן:</div>
+                    <div class="parent-phone">0503318880</div>
+                </div>
+                <div class="child-number">20</div>
+            </div>
+
+            <!-- 21. דריה גוטמן -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילדה">👧</div>
+                <div class="child-name">דריה גוטמן</div>
+                <div class="parent-info">
+                    <div class="parent-label">אור:</div>
+                    <div class="parent-phone">0546763336</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">עדן:</div>
+                    <div class="parent-phone">0503318880</div>
+                </div>
+                <div class="child-number">21</div>
+            </div>
+
+            <!-- 22. אדם גרטל -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">אדם גרטל</div>
+                <div class="parent-info">
+                    <div class="parent-label">יערה:</div>
+                    <div class="parent-phone">0544500590</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">שי:</div>
+                    <div class="parent-phone">0527086134</div>
+                </div>
+                <div class="child-number">22</div>
+            </div>
+
+            <!-- 23. ארי בירגר -->
+            <div class="child-card">
+                <div class="child-photo" aria-label="תמונת ילד">🧒</div>
+                <div class="child-name">ארי בירגר</div>
+                <div class="parent-info">
+                    <div class="parent-label">רוני:</div>
+                    <div class="parent-phone">0542292847</div>
+                </div>
+                <div class="parent-info">
+                    <div class="parent-label">-</div>
+                    <div class="parent-phone">-</div>
+                </div>
+                <div class="child-number">23</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        // כפתור הורדת PDF
+        document.getElementById("download-pdf").addEventListener("click", () => {
+            const element = document.querySelector(".container");
+            const opt = {
+                margin: 10,
+                filename: 'דף_קשר_גן_החלומות.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
+</body>
+
+</html>
