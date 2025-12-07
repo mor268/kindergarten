@@ -2,8 +2,8 @@
 <html lang="he" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>דף קשר - גן החלומות</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
@@ -46,7 +46,7 @@
         }
 
         .garden-name {
-            font-family: 'Varela Round', sans-serif;
+            font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 2.5rem;
             font-weight: 400;
             color: #2c3e50;
@@ -55,7 +55,7 @@
         }
 
         .contact-title {
-            font-family: 'Varela Round', sans-serif;
+            font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 1.5rem;
             color: #7b68ee;
             font-weight: 400;
@@ -66,6 +66,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, .1);
         }
 
+        /* ✅ תמיד 2 ילדים בשורה */
         .children-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -110,7 +111,7 @@
         }
 
         .child-name {
-            font-family: 'Varela Round', sans-serif;
+            font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 1.2rem;
             font-weight: 400;
             color: #2c3e50;
@@ -208,12 +209,6 @@
             animation-delay: .3s;
         }
 
-        @media (max-width:1024px) {
-            .children-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width:600px) {
             .garden-name {
                 font-size: 2rem;
@@ -221,11 +216,6 @@
 
             .contact-title {
                 font-size: 1.3rem;
-            }
-
-            .children-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
             }
 
             .container {
@@ -598,21 +588,42 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <script>
-        // כפתור הורדת PDF
-        document.getElementById("download-pdf").addEventListener("click", () => {
-            const element = document.querySelector(".container");
-            const opt = {
-                margin: 10,
-                filename: 'דף_קשר_גן_החלומות.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
-        });
+        (function () {
+            const exts = ["webp", "jpg", "jpeg", "png"];
+
+            function normalizeFileName(name) {
+                return encodeURIComponent(name.trim());
+            }
+
+            function tryLoad(photoEl, rawName, i = 0) {
+                if (i >= exts.length) return;
+
+                const safeName = normalizeFileName(rawName);
+                const ext = exts[i];
+                const url = `images/${safeName}.${ext}`;
+
+                const img = new Image();
+                img.onload = () => {
+                    photoEl.style.backgroundImage = `url('${url}')`;
+                    photoEl.textContent = "";
+                    photoEl.setAttribute("aria-label", `תמונתו/ה של ${rawName}`);
+                };
+                img.onerror = () => {
+                    tryLoad(photoEl, rawName, i + 1);
+                };
+                img.src = url;
+            }
+
+            document.querySelectorAll(".child-card").forEach(card => {
+                const nameEl = card.querySelector(".child-name");
+                const photoEl = card.querySelector(".child-photo");
+                if (!nameEl || !photoEl) return;
+
+                const rawName = nameEl.textContent.trim();
+                tryLoad(photoEl, rawName);
+            });
+        })();
     </script>
 </body>
 
